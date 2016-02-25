@@ -1,0 +1,9 @@
+<%= form_for Comentario.new, remote: true do |f| %>
+
+<% content_for :js do %>
+  $('form').bind('ajax:complete', function(xhr, result){
+    $('#comentarios').replaceWith(result.responseText);
+    $('textarea').val("");
+  });
+<% end %>
+<% end %>

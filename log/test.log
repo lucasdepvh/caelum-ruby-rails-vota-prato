@@ -1,0 +1,1024 @@
+  [1m[36m (397.5ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (541.1ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) 
+  [1m[36mActiveRecord::SchemaMigration Load (1.4ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+Migrating to CreateRestaurantes (20151113164306)
+  [1m[35m (299.5ms)[0m  CREATE TABLE `restaurantes` (`id` int(11) auto_increment PRIMARY KEY, `nome` varchar(80), `endereco` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB
+  [1m[36m (0.8ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.6ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20151113164306')
+  [1m[36m (41.5ms)[0m  [1mCOMMIT[0m
+Migrating to AddColumnEspecialidadeToRestaurante (20151113165127)
+  [1m[35m (543.8ms)[0m  ALTER TABLE `restaurantes` ADD `especialidade` varchar(40)
+  [1m[36m (0.8ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (18.7ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20151113165127')
+  [1m[36m (42.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateClientes (20151113203601)
+  [1m[35m (285.9ms)[0m  CREATE TABLE `clientes` (`id` int(11) auto_increment PRIMARY KEY, `nome` varchar(80), `idade` int(11), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB
+  [1m[36m (0.7ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.8ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20151113203601')
+  [1m[36m (35.0ms)[0m  [1mCOMMIT[0m
+Migrating to CreatePratos (20151113204240)
+  [1m[35m (311.6ms)[0m  CREATE TABLE `pratos` (`id` int(11) auto_increment PRIMARY KEY, `nome` varchar(80), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (1.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.8ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20151113204240')
+  [1m[36m (47.7ms)[0m  [1mCOMMIT[0m
+Migrating to CreateReceitas (20151113204717)
+  [1m[35m (336.6ms)[0m  CREATE TABLE `receitas` (`id` int(11) auto_increment PRIMARY KEY, `conteudo` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (11.0ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (23.3ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20151113204717')
+  [1m[36m (47.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateQualificacoes (20151113205504)
+  [1m[35m (350.8ms)[0m  CREATE TABLE `qualificacoes` (`id` int(11) auto_increment PRIMARY KEY, `nota` int(11), `valor_gasto` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (7.5ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.6ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20151113205504')
+  [1m[36m (45.9ms)[0m  [1mCOMMIT[0m
+Migrating to AddColumnPratoIdToReceitas (20151113215054)
+  [1m[35m (583.2ms)[0m  ALTER TABLE `receitas` ADD `prato_id` int(11)
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (10.7ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20151113215054')
+  [1m[36m (40.3ms)[0m  [1mCOMMIT[0m
+Migrating to AddClienteIdAndRestauranteIdToQualificacoes (20151113215248)
+  [1m[35m (626.0ms)[0m  ALTER TABLE `qualificacoes` ADD `cliente_id` int(11)
+  [1m[36m (534.1ms)[0m  [1mALTER TABLE `qualificacoes` ADD `restaurante_id` int(11)[0m
+  [1m[35m (0.8ms)[0m  BEGIN
+  [1m[36mSQL (24.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151113215248')[0m
+  [1m[35m (47.8ms)[0m  COMMIT
+Migrating to CreatePratosRestaurantesJoinTable (20151113215542)
+  [1m[36m (286.9ms)[0m  [1mCREATE TABLE `pratos_restaurantes` (`prato_id` int(11), `restaurante_id` int(11)) ENGINE=InnoDB[0m
+  [1m[35m (0.8ms)[0m  BEGIN
+  [1m[36mSQL (1.5ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20151113215542')[0m
+  [1m[35m (34.1ms)[0m  COMMIT
+Migrating to AddNotaToQualificacao (20151210205455)
+  [1m[36m (5.0ms)[0m  [1mALTER TABLE `qualificacoes` ADD `nota` int(11)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[36m (1306.8ms)[0m  [1mDROP DATABASE IF EXISTS `vota_prato_test`[0m
+  [1m[35m (2.2ms)[0m  CREATE DATABASE `vota_prato_test` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`
+  [1m[36m (261.4ms)[0m  [1mCREATE TABLE `clientes` (`id` int(11) auto_increment PRIMARY KEY, `nome` varchar(80), `idade` int(11), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35m (270.7ms)[0m  CREATE TABLE `comentarios` (`id` int(11) auto_increment PRIMARY KEY, `conteudo` text, `comentavel_id` int(11), `comentavel_type` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB
+  [1m[36m (301.7ms)[0m  [1mCREATE  INDEX `index_comentarios_on_comentavel_id` USING btree ON `comentarios` (`comentavel_id`) [0m
+  [1m[35m (324.9ms)[0m  CREATE  INDEX `index_comentarios_on_comentavel_type` USING btree ON `comentarios` (`comentavel_type`) 
+  [1m[36m (260.9ms)[0m  [1mCREATE TABLE `pratos` (`id` int(11) auto_increment PRIMARY KEY, `nome` varchar(80), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (283.1ms)[0m  CREATE TABLE `pratos_restaurantes` (`prato_id` int(11), `restaurante_id` int(11)) ENGINE=InnoDB
+  [1m[36m (326.7ms)[0m  [1mCREATE TABLE `qualificacoes` (`id` int(11) auto_increment PRIMARY KEY, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL, `cliente_id` int(11), `restaurante_id` int(11), `nota` int(11), `valorgasto` int(11), `valor_gasto` int(11)) ENGINE=InnoDB[0m
+  [1m[35m (315.9ms)[0m  CREATE TABLE `receitas` (`id` int(11) auto_increment PRIMARY KEY, `conteudo` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL, `prato_id` int(11)) ENGINE=InnoDB
+  [1m[36m (325.4ms)[0m  [1mCREATE TABLE `restaurantes` (`id` int(11) auto_increment PRIMARY KEY, `nome` varchar(80), `endereco` varchar(255), `created_at` datetime, `updated_at` datetime, `especialidade` varchar(40), `foto_file_name` varchar(255), `foto_content_type` varchar(255), `foto_file_size` int(11), `foto_updated_at` datetime) ENGINE=InnoDB[0m
+  [1m[35m (274.9ms)[0m  CREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB
+  [1m[36m (529.7ms)[0m  [1mCREATE UNIQUE INDEX `unique_schema_migrations`  ON `schema_migrations` (`version`) [0m
+  [1m[35m (1.5ms)[0m  SELECT version FROM `schema_migrations`
+  [1m[36m (38.8ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20160111045217')[0m
+  [1m[35m (43.4ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20151113215542')
+  [1m[36m (43.8ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20151113215248')[0m
+  [1m[35m (43.5ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20151113204240')
+  [1m[36m (43.8ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20151212174142')[0m
+  [1m[35m (43.5ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20151113204717')
+  [1m[36m (54.6ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20151113205504')[0m
+  [1m[35m (43.8ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20151214160713')
+  [1m[36m (43.7ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20151210205455')[0m
+  [1m[35m (43.3ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20151113215054')
+  [1m[36m (43.6ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20151113203601')[0m
+  [1m[35m (43.6ms)[0m  INSERT INTO `schema_migrations` (version) VALUES ('20151113164306')
+  [1m[36m (54.5ms)[0m  [1mINSERT INTO `schema_migrations` (version) VALUES ('20151113165127')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.9ms)[0m  SELECT `schema_migrations`.* FROM `schema_migrations`
+  [1m[36m (2.0ms)[0m  [1mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (14.1ms)[0m  SET FOREIGN_KEY_CHECKS = 0
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.7ms)[0m  DELETE FROM `pratos`
+  [1m[36mFixture Insert (16.9ms)[0m  [1mINSERT INTO `pratos` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:36:30', '2016-01-24 03:36:30', 980190962)[0m
+  [1m[35mFixture Insert (0.9ms)[0m  INSERT INTO `pratos` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:36:30', '2016-01-24 03:36:30', 298486374)
+  [1m[36mFixture Delete (0.7ms)[0m  [1mDELETE FROM `restaurantes`[0m
+  [1m[35mFixture Insert (0.7ms)[0m  INSERT INTO `restaurantes` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:36:30', '2016-01-24 03:36:30', 980190962)
+  [1m[36mFixture Insert (0.9ms)[0m  [1mINSERT INTO `restaurantes` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:36:30', '2016-01-24 03:36:30', 298486374)[0m
+  [1m[35mFixture Delete (1.4ms)[0m  DELETE FROM `qualificacoes`
+  [1m[36mFixture Insert (1.2ms)[0m  [1mINSERT INTO `qualificacoes` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:36:30', '2016-01-24 03:36:30', 980190962)[0m
+  [1m[35mFixture Insert (1.3ms)[0m  INSERT INTO `qualificacoes` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:36:30', '2016-01-24 03:36:30', 298486374)
+  [1m[36mFixture Delete (1.2ms)[0m  [1mDELETE FROM `receitas`[0m
+  [1m[35mFixture Insert (1.2ms)[0m  INSERT INTO `receitas` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:36:30', '2016-01-24 03:36:30', 980190962)
+  [1m[36mFixture Insert (2.6ms)[0m  [1mINSERT INTO `receitas` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:36:30', '2016-01-24 03:36:30', 298486374)[0m
+  [1m[35mFixture Delete (1.1ms)[0m  DELETE FROM `clientes`
+  [1m[36mFixture Insert (1.2ms)[0m  [1mINSERT INTO `clientes` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:36:30', '2016-01-24 03:36:30', 980190962)[0m
+  [1m[35mFixture Insert (2.8ms)[0m  INSERT INTO `clientes` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:36:30', '2016-01-24 03:36:30', 298486374)
+  [1m[36mFixture Delete (1.2ms)[0m  [1mDELETE FROM `comentarios`[0m
+  [1m[35mFixture Insert (1.5ms)[0m  INSERT INTO `comentarios` (`conteudo`, `comentavel_id`, `comentavel_type`, `created_at`, `updated_at`, `id`) VALUES ('MyText', 1, 'MyString', '2016-01-24 03:36:30', '2016-01-24 03:36:30', 980190962)
+  [1m[36mFixture Insert (1.4ms)[0m  [1mINSERT INTO `comentarios` (`conteudo`, `comentavel_id`, `comentavel_type`, `created_at`, `updated_at`, `id`) VALUES ('MyText', 1, 'MyString', '2016-01-24 03:36:30', '2016-01-24 03:36:30', 298486374)[0m
+  [1m[35m (30.5ms)[0m  COMMIT
+  [1m[36m (0.8ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.6ms)[0m  BEGIN
+---------------------------------
+RestauranteTest: test_restaurante
+---------------------------------
+  [1m[36m (0.8ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.7ms)[0m  BEGIN
+---------------------------------------------------------
+ComentariosControllerTest: test_should_destroy_comentario
+---------------------------------------------------------
+  [1m[36mComentario Load (1.0ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (1.0ms)[0m  SELECT COUNT(*) FROM `comentarios`
+Processing by ComentariosController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mComentario Load (1.2ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.9ms)[0m  DELETE FROM `comentarios` WHERE `comentarios`.`id` = 980190962
+  [1m[36m (0.6ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Completed 406 Not Acceptable in 13ms (ActiveRecord: 4.2ms)
+  [1m[35m (39.2ms)[0m  ROLLBACK
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+-----------------------------------------------
+ComentariosControllerTest: test_should_get_edit
+-----------------------------------------------
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+Processing by ComentariosController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mComentario Load (1.0ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+  Rendered comentarios/_form.html.erb (73.9ms)
+  Rendered comentarios/edit.html.erb within layouts/application (96.2ms)
+  Rendered layouts/_menu_principal.html.erb (2.6ms)
+Completed 200 OK in 3643ms (Views: 3639.8ms | ActiveRecord: 1.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+------------------------------------------------------
+ComentariosControllerTest: test_should_show_comentario
+------------------------------------------------------
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+Processing by ComentariosController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mComentario Load (1.0ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+  Rendered comentarios/show.html.erb within layouts/application (2.9ms)
+  Rendered layouts/_menu_principal.html.erb (2.5ms)
+Completed 200 OK in 39ms (Views: 31.7ms | ActiveRecord: 1.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.6ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------
+ComentariosControllerTest: test_should_create_comentario
+--------------------------------------------------------
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+  [1m[36m (0.9ms)[0m  [1mSELECT COUNT(*) FROM `comentarios`[0m
+Processing by ComentariosController#create as HTML
+  Parameters: {"comentario"=>{"comentavel_id"=>"1", "comentavel_type"=>"MyString", "conteudo"=>"MyText"}}
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.4ms)[0m  [1mINSERT INTO `comentarios` (`conteudo`, `comentavel_id`, `comentavel_type`, `created_at`, `updated_at`) VALUES ('MyText', 1, 'MyString', '2016-01-24 03:36:34', '2016-01-24 03:36:34')[0m
+  [1m[35m (0.5ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 2.4ms)
+  [1m[36m (60.4ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.6ms)[0m  BEGIN
+------------------------------------------------
+ComentariosControllerTest: test_should_get_index
+------------------------------------------------
+  [1m[36mComentario Load (2.1ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+Processing by ComentariosController#index as HTML
+  [1m[35mComentario Load (1.6ms)[0m  SELECT `comentarios`.* FROM `comentarios`
+  Rendered comentarios/index.html.erb within layouts/application (15.5ms)
+  Rendered layouts/_menu_principal.html.erb (2.4ms)
+Completed 200 OK in 54ms (Views: 50.6ms | ActiveRecord: 1.6ms)
+  [1m[36m (1.0ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.6ms)[0m  BEGIN
+----------------------------------------------
+ComentariosControllerTest: test_should_get_new
+----------------------------------------------
+  [1m[36mComentario Load (1.9ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+Processing by ComentariosController#new as HTML
+  Rendered comentarios/_form.html.erb (5.9ms)
+  Rendered comentarios/new.html.erb within layouts/application (8.2ms)
+  Rendered layouts/_menu_principal.html.erb (1.6ms)
+Completed 200 OK in 35ms (Views: 33.7ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------
+ComentariosControllerTest: test_should_update_comentario
+--------------------------------------------------------
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+Processing by ComentariosController#update as HTML
+  Parameters: {"comentario"=>{"comentavel_id"=>"1", "comentavel_type"=>"MyString", "conteudo"=>"MyText"}, "id"=>"980190962"}
+  [1m[36mComentario Load (1.0ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.5ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/comentarios/980190962
+Completed 302 Found in 9ms (ActiveRecord: 2.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+-------------------------------------------------
+QualificacoesControllerTest: test_should_get_edit
+-------------------------------------------------
+  [1m[35mQualificacao Load (1.0ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+Processing by QualificacoesController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mQualificacao Load (1.2ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35mCliente Load (0.9ms)[0m  SELECT `clientes`.* FROM `clientes`
+  [1m[36mRestaurante Load (1.0ms)[0m  [1mSELECT `restaurantes`.* FROM `restaurantes`[0m
+  Rendered qualificacoes/_form.html.erb (60.0ms)
+  Rendered qualificacoes/edit.html.erb within layouts/application (63.7ms)
+  Rendered layouts/_menu_principal.html.erb (1.5ms)
+Completed 200 OK in 94ms (Views: 86.2ms | ActiveRecord: 3.1ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+--------------------------------------------------
+QualificacoesControllerTest: test_should_get_index
+--------------------------------------------------
+  [1m[35mQualificacao Load (1.0ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+Processing by QualificacoesController#index as HTML
+  [1m[36mQualificacao Load (1.2ms)[0m  [1mSELECT `qualificacoes`.* FROM `qualificacoes`[0m
+  Rendered qualificacoes/index.html.erb within layouts/application (19.1ms)
+Completed 500 Internal Server Error in 27ms (ActiveRecord: 1.2ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+----------------------------------------------------------
+QualificacoesControllerTest: test_should_show_qualificacao
+----------------------------------------------------------
+  [1m[35mQualificacao Load (3.4ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+Processing by QualificacoesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mQualificacao Load (1.0ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+  Rendered qualificacoes/show.html.erb within layouts/application (5.3ms)
+Completed 500 Internal Server Error in 23ms (ActiveRecord: 1.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+------------------------------------------------------------
+QualificacoesControllerTest: test_should_create_qualificacao
+------------------------------------------------------------
+  [1m[35mQualificacao Load (1.0ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+  [1m[36m (1.5ms)[0m  [1mSELECT COUNT(*) FROM `qualificacoes`[0m
+Processing by QualificacoesController#create as HTML
+  Parameters: {"qualificacao"=>{"cliente_id"=>nil, "nota"=>nil, "restaurante_id"=>nil, "valor_gasto"=>nil}}
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.6ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35mCliente Load (1.0ms)[0m  SELECT `clientes`.* FROM `clientes`
+  [1m[36mRestaurante Load (0.9ms)[0m  [1mSELECT `restaurantes`.* FROM `restaurantes`[0m
+  Rendered qualificacoes/_form.html.erb (34.4ms)
+  Rendered qualificacoes/new.html.erb within layouts/application (38.9ms)
+  Rendered layouts/_menu_principal.html.erb (1.4ms)
+Completed 200 OK in 85ms (Views: 51.2ms | ActiveRecord: 3.1ms)
+  [1m[35m (0.9ms)[0m  SELECT COUNT(*) FROM `qualificacoes`
+  [1m[36m (0.6ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+-------------------------------------------------------------
+QualificacoesControllerTest: test_should_destroy_qualificacao
+-------------------------------------------------------------
+  [1m[36mQualificacao Load (1.0ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.9ms)[0m  SELECT COUNT(*) FROM `qualificacoes`
+Processing by QualificacoesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mQualificacao Load (1.0ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.9ms)[0m  [1mDELETE FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962[0m
+  [1m[35m (0.5ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/qualificacoes
+Completed 302 Found in 13ms (ActiveRecord: 2.8ms)
+  [1m[36m (1.3ms)[0m  [1mSELECT COUNT(*) FROM `qualificacoes`[0m
+  [1m[35m (40.2ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+QualificacoesControllerTest: test_should_get_new
+------------------------------------------------
+  [1m[35mQualificacao Load (1.1ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+Processing by QualificacoesController#new as HTML
+  [1m[36mCliente Load (0.9ms)[0m  [1mSELECT `clientes`.* FROM `clientes`[0m
+  [1m[35mRestaurante Load (0.9ms)[0m  SELECT `restaurantes`.* FROM `restaurantes`
+  Rendered qualificacoes/_form.html.erb (40.0ms)
+  Rendered qualificacoes/new.html.erb within layouts/application (42.0ms)
+  Rendered layouts/_menu_principal.html.erb (1.2ms)
+Completed 200 OK in 61ms (Views: 52.9ms | ActiveRecord: 1.8ms)
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+------------------------------------------------------------
+QualificacoesControllerTest: test_should_update_qualificacao
+------------------------------------------------------------
+  [1m[36mQualificacao Load (1.0ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+Processing by QualificacoesController#update as HTML
+  Parameters: {"qualificacao"=>{"cliente_id"=>nil, "nota"=>nil, "restaurante_id"=>nil, "valor_gasto"=>nil}, "id"=>"980190962"}
+  [1m[35mQualificacao Load (1.0ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+  [1m[36mQualificacao Load (0.9ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.6ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.5ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35mCliente Load (0.9ms)[0m  SELECT `clientes`.* FROM `clientes`
+  [1m[36mRestaurante Load (1.0ms)[0m  [1mSELECT `restaurantes`.* FROM `restaurantes`[0m
+  Rendered qualificacoes/_form.html.erb (29.4ms)
+  Rendered qualificacoes/edit.html.erb within layouts/application (30.7ms)
+  Rendered layouts/_menu_principal.html.erb (3.2ms)
+Completed 200 OK in 74ms (Views: 43.8ms | ActiveRecord: 5.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+--------------------------------------------
+ClientesControllerTest: test_should_get_edit
+--------------------------------------------
+  [1m[35mCliente Load (1.1ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+Processing by ClientesController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mCliente Load (3.3ms)[0m  [1mSELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1[0m
+  Rendered clientes/_form.html.erb (10.9ms)
+  Rendered clientes/edit.html.erb within layouts/application (16.2ms)
+  Rendered layouts/_menu_principal.html.erb (1.5ms)
+Completed 200 OK in 46ms (Views: 39.2ms | ActiveRecord: 3.3ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+---------------------------------------------
+ClientesControllerTest: test_should_get_index
+---------------------------------------------
+  [1m[35mCliente Load (1.0ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+Processing by ClientesController#index as HTML
+  [1m[36mCliente Load (1.0ms)[0m  [1mSELECT `clientes`.* FROM `clientes`[0m
+  Rendered clientes/index.html.erb within layouts/application (4.7ms)
+  Rendered layouts/_menu_principal.html.erb (1.7ms)
+Completed 200 OK in 27ms (Views: 25.4ms | ActiveRecord: 1.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+ClientesControllerTest: test_should_show_cliente
+------------------------------------------------
+  [1m[35mCliente Load (1.0ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+Processing by ClientesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mCliente Load (0.9ms)[0m  [1mSELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1[0m
+  Rendered clientes/show.html.erb within layouts/application (5.7ms)
+  Rendered layouts/_menu_principal.html.erb (3.6ms)
+Completed 200 OK in 43ms (Views: 40.0ms | ActiveRecord: 0.9ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+-------------------------------------------
+ClientesControllerTest: test_should_get_new
+-------------------------------------------
+  [1m[35mCliente Load (1.0ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+Processing by ClientesController#new as HTML
+  Rendered clientes/_form.html.erb (4.9ms)
+  Rendered clientes/new.html.erb within layouts/application (6.7ms)
+  Rendered layouts/_menu_principal.html.erb (1.2ms)
+Completed 200 OK in 18ms (Views: 17.4ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+---------------------------------------------------
+ClientesControllerTest: test_should_destroy_cliente
+---------------------------------------------------
+  [1m[36mCliente Load (1.0ms)[0m  [1mSELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.9ms)[0m  SELECT COUNT(*) FROM `clientes`
+Processing by ClientesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mCliente Load (1.6ms)[0m  [1mSELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.1ms)[0m  [1mDELETE FROM `clientes` WHERE `clientes`.`id` = 980190962[0m
+  [1m[35m (0.5ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/clientes
+Completed 302 Found in 9ms (ActiveRecord: 3.6ms)
+  [1m[36m (0.9ms)[0m  [1mSELECT COUNT(*) FROM `clientes`[0m
+  [1m[35m (87.3ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+--------------------------------------------------
+ClientesControllerTest: test_should_create_cliente
+--------------------------------------------------
+  [1m[35mCliente Load (1.0ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+  [1m[36m (0.9ms)[0m  [1mSELECT COUNT(*) FROM `clientes`[0m
+Processing by ClientesController#create as HTML
+  Parameters: {"cliente"=>{"idade"=>nil, "nome"=>nil}}
+  [1m[35m (0.6ms)[0m  SAVEPOINT active_record_1
+  [1m[36mCliente Exists (0.9ms)[0m  [1mSELECT  1 AS one FROM `clientes` WHERE `clientes`.`nome` IS NULL LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  Rendered clientes/_form.html.erb (10.1ms)
+  Rendered clientes/new.html.erb within layouts/application (11.2ms)
+  Rendered layouts/_menu_principal.html.erb (1.2ms)
+Completed 200 OK in 55ms (Views: 19.9ms | ActiveRecord: 2.0ms)
+  [1m[36m (0.9ms)[0m  [1mSELECT COUNT(*) FROM `clientes`[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+--------------------------------------------------
+ClientesControllerTest: test_should_update_cliente
+--------------------------------------------------
+  [1m[35mCliente Load (1.0ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+Processing by ClientesController#update as HTML
+  Parameters: {"cliente"=>{"idade"=>nil, "nome"=>nil}, "id"=>"980190962"}
+  [1m[36mCliente Load (1.0ms)[0m  [1mSELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36mCliente Exists (1.1ms)[0m  [1mSELECT  1 AS one FROM `clientes` WHERE (`clientes`.`nome` IS NULL AND `clientes`.`id` != 980190962) LIMIT 1[0m
+  [1m[35m (0.6ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  Rendered clientes/_form.html.erb (9.4ms)
+  Rendered clientes/edit.html.erb within layouts/application (10.9ms)
+  Rendered layouts/_menu_principal.html.erb (1.7ms)
+Completed 200 OK in 43ms (Views: 19.4ms | ActiveRecord: 3.3ms)
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (0.9ms)[0m  SELECT @@FOREIGN_KEY_CHECKS
+  [1m[36m (0.6ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mFixture Delete (1.4ms)[0m  [1mDELETE FROM `pratos`[0m
+  [1m[35mFixture Insert (0.8ms)[0m  INSERT INTO `pratos` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:38:27', '2016-01-24 03:38:27', 980190962)
+  [1m[36mFixture Insert (0.7ms)[0m  [1mINSERT INTO `pratos` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:38:27', '2016-01-24 03:38:27', 298486374)[0m
+  [1m[35mFixture Delete (0.8ms)[0m  DELETE FROM `restaurantes`
+  [1m[36mFixture Insert (0.9ms)[0m  [1mINSERT INTO `restaurantes` (`nome`, `endereco`, `created_at`, `updated_at`, `id`) VALUES ('Fasano', 'Rua Vergueiro', '2016-01-24 03:38:27', '2016-01-24 03:38:27', 500271007)[0m
+  [1m[35mFixture Insert (0.8ms)[0m  INSERT INTO `restaurantes` (`nome`, `endereco`, `created_at`, `updated_at`, `id`) VALUES ('Fogo de Chao', 'Avenida dos Bandeirantes', '2016-01-24 03:38:27', '2016-01-24 03:38:27', 273585968)
+  [1m[36mFixture Delete (1.4ms)[0m  [1mDELETE FROM `qualificacoes`[0m
+  [1m[35mFixture Insert (0.9ms)[0m  INSERT INTO `qualificacoes` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:38:27', '2016-01-24 03:38:27', 980190962)
+  [1m[36mFixture Insert (0.7ms)[0m  [1mINSERT INTO `qualificacoes` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:38:27', '2016-01-24 03:38:27', 298486374)[0m
+  [1m[35mFixture Delete (1.5ms)[0m  DELETE FROM `receitas`
+  [1m[36mFixture Insert (1.4ms)[0m  [1mINSERT INTO `receitas` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:38:27', '2016-01-24 03:38:27', 980190962)[0m
+  [1m[35mFixture Insert (1.4ms)[0m  INSERT INTO `receitas` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:38:27', '2016-01-24 03:38:27', 298486374)
+  [1m[36mFixture Delete (2.9ms)[0m  [1mDELETE FROM `clientes`[0m
+  [1m[35mFixture Insert (1.3ms)[0m  INSERT INTO `clientes` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:38:27', '2016-01-24 03:38:27', 980190962)
+  [1m[36mFixture Insert (1.2ms)[0m  [1mINSERT INTO `clientes` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:38:27', '2016-01-24 03:38:27', 298486374)[0m
+  [1m[35mFixture Delete (2.2ms)[0m  DELETE FROM `comentarios`
+  [1m[36mFixture Insert (20.3ms)[0m  [1mINSERT INTO `comentarios` (`conteudo`, `comentavel_id`, `comentavel_type`, `created_at`, `updated_at`, `id`) VALUES ('MyText', 1, 'MyString', '2016-01-24 03:38:27', '2016-01-24 03:38:27', 980190962)[0m
+  [1m[35mFixture Insert (0.8ms)[0m  INSERT INTO `comentarios` (`conteudo`, `comentavel_id`, `comentavel_type`, `created_at`, `updated_at`, `id`) VALUES ('MyText', 1, 'MyString', '2016-01-24 03:38:27', '2016-01-24 03:38:27', 298486374)
+  [1m[36m (134.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.8ms)[0m  SET FOREIGN_KEY_CHECKS = 1
+  [1m[36m (0.6ms)[0m  [1mBEGIN[0m
+---------------------------------
+RestauranteTest: test_restaurante
+---------------------------------
+  [1m[35mRestaurante Load (1.9ms)[0m  SELECT  `restaurantes`.* FROM `restaurantes` WHERE `restaurantes`.`id` = 500271007 LIMIT 1
+  [1m[36m (0.8ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+---------------------------------------------------
+ClientesControllerTest: test_should_destroy_cliente
+---------------------------------------------------
+  [1m[36mCliente Load (1.0ms)[0m  [1mSELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (1.0ms)[0m  SELECT COUNT(*) FROM `clientes`
+Processing by ClientesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mCliente Load (1.1ms)[0m  [1mSELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.0ms)[0m  [1mDELETE FROM `clientes` WHERE `clientes`.`id` = 980190962[0m
+  [1m[35m (0.5ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/clientes
+Completed 302 Found in 18ms (ActiveRecord: 3.1ms)
+  [1m[36m (1.0ms)[0m  [1mSELECT COUNT(*) FROM `clientes`[0m
+  [1m[35m (46.9ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+--------------------------------------------------
+ClientesControllerTest: test_should_create_cliente
+--------------------------------------------------
+  [1m[35mCliente Load (1.0ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+  [1m[36m (0.9ms)[0m  [1mSELECT COUNT(*) FROM `clientes`[0m
+Processing by ClientesController#create as HTML
+  Parameters: {"cliente"=>{"idade"=>nil, "nome"=>nil}}
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36mCliente Exists (1.1ms)[0m  [1mSELECT  1 AS one FROM `clientes` WHERE `clientes`.`nome` IS NULL LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  Rendered clientes/_form.html.erb (43.0ms)
+  Rendered clientes/new.html.erb within layouts/application (54.0ms)
+  Rendered layouts/_menu_principal.html.erb (2.9ms)
+Completed 200 OK in 527ms (Views: 464.3ms | ActiveRecord: 2.2ms)
+  [1m[36m (0.9ms)[0m  [1mSELECT COUNT(*) FROM `clientes`[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+--------------------------------------------
+ClientesControllerTest: test_should_get_edit
+--------------------------------------------
+  [1m[35mCliente Load (1.0ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+Processing by ClientesController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mCliente Load (1.0ms)[0m  [1mSELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1[0m
+  Rendered clientes/_form.html.erb (4.3ms)
+  Rendered clientes/edit.html.erb within layouts/application (6.6ms)
+  Rendered layouts/_menu_principal.html.erb (1.4ms)
+Completed 200 OK in 29ms (Views: 21.8ms | ActiveRecord: 1.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+-------------------------------------------
+ClientesControllerTest: test_should_get_new
+-------------------------------------------
+  [1m[35mCliente Load (1.0ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+Processing by ClientesController#new as HTML
+  Rendered clientes/_form.html.erb (3.5ms)
+  Rendered clientes/new.html.erb within layouts/application (4.4ms)
+  Rendered layouts/_menu_principal.html.erb (1.2ms)
+Completed 200 OK in 12ms (Views: 11.6ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.6ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+--------------------------------------------------
+ClientesControllerTest: test_should_update_cliente
+--------------------------------------------------
+  [1m[36mCliente Load (1.0ms)[0m  [1mSELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1[0m
+Processing by ClientesController#update as HTML
+  Parameters: {"cliente"=>{"idade"=>nil, "nome"=>nil}, "id"=>"980190962"}
+  [1m[35mCliente Load (1.0ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mCliente Exists (1.1ms)[0m  SELECT  1 AS one FROM `clientes` WHERE (`clientes`.`nome` IS NULL AND `clientes`.`id` != 980190962) LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  Rendered clientes/_form.html.erb (19.0ms)
+  Rendered clientes/edit.html.erb within layouts/application (20.2ms)
+  Rendered layouts/_menu_principal.html.erb (1.2ms)
+Completed 200 OK in 41ms (Views: 27.6ms | ActiveRecord: 3.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+---------------------------------------------
+ClientesControllerTest: test_should_get_index
+---------------------------------------------
+  [1m[35mCliente Load (1.0ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+Processing by ClientesController#index as HTML
+  [1m[36mCliente Load (0.9ms)[0m  [1mSELECT `clientes`.* FROM `clientes`[0m
+  Rendered clientes/index.html.erb within layouts/application (16.5ms)
+  Rendered layouts/_menu_principal.html.erb (1.4ms)
+Completed 200 OK in 27ms (Views: 24.9ms | ActiveRecord: 0.9ms)
+  [1m[35m (0.6ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+ClientesControllerTest: test_should_show_cliente
+------------------------------------------------
+  [1m[35mCliente Load (1.0ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+Processing by ClientesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mCliente Load (1.0ms)[0m  [1mSELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1[0m
+  Rendered clientes/show.html.erb within layouts/application (2.6ms)
+  Rendered layouts/_menu_principal.html.erb (1.4ms)
+Completed 200 OK in 26ms (Views: 23.3ms | ActiveRecord: 1.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+-------------------------------------------------
+QualificacoesControllerTest: test_should_get_edit
+-------------------------------------------------
+  [1m[35mQualificacao Load (1.0ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+Processing by QualificacoesController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mQualificacao Load (1.0ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35mCliente Load (1.0ms)[0m  SELECT `clientes`.* FROM `clientes`
+  [1m[36mRestaurante Load (1.1ms)[0m  [1mSELECT `restaurantes`.* FROM `restaurantes`[0m
+  Rendered qualificacoes/_form.html.erb (29.4ms)
+  Rendered qualificacoes/edit.html.erb within layouts/application (33.1ms)
+  Rendered layouts/_menu_principal.html.erb (1.4ms)
+Completed 200 OK in 55ms (Views: 47.2ms | ActiveRecord: 3.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+----------------------------------------------------------
+QualificacoesControllerTest: test_should_show_qualificacao
+----------------------------------------------------------
+  [1m[35mQualificacao Load (1.0ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+Processing by QualificacoesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mQualificacao Load (1.0ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+  Rendered qualificacoes/show.html.erb within layouts/application (7.1ms)
+Completed 500 Internal Server Error in 17ms (ActiveRecord: 1.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+-------------------------------------------------------------
+QualificacoesControllerTest: test_should_destroy_qualificacao
+-------------------------------------------------------------
+  [1m[35mQualificacao Load (1.2ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+  [1m[36m (0.9ms)[0m  [1mSELECT COUNT(*) FROM `qualificacoes`[0m
+Processing by QualificacoesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mQualificacao Load (1.1ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.0ms)[0m  DELETE FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962
+  [1m[36m (0.5ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/qualificacoes
+Completed 302 Found in 9ms (ActiveRecord: 3.1ms)
+  [1m[35m (0.9ms)[0m  SELECT COUNT(*) FROM `qualificacoes`
+  [1m[36m (47.9ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+------------------------------------------------------------
+QualificacoesControllerTest: test_should_update_qualificacao
+------------------------------------------------------------
+  [1m[36mQualificacao Load (1.3ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+Processing by QualificacoesController#update as HTML
+  Parameters: {"qualificacao"=>{"cliente_id"=>nil, "nota"=>nil, "restaurante_id"=>nil, "valor_gasto"=>nil}, "id"=>"980190962"}
+  [1m[35mQualificacao Load (5.2ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+  [1m[36mQualificacao Load (1.0ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.5ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  [1m[35mCliente Load (1.0ms)[0m  SELECT `clientes`.* FROM `clientes`
+  [1m[36mRestaurante Load (1.0ms)[0m  [1mSELECT `restaurantes`.* FROM `restaurantes`[0m
+  Rendered qualificacoes/_form.html.erb (22.6ms)
+  Rendered qualificacoes/edit.html.erb within layouts/application (24.0ms)
+  Rendered layouts/_menu_principal.html.erb (1.2ms)
+Completed 200 OK in 60ms (Views: 29.8ms | ActiveRecord: 9.2ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+QualificacoesControllerTest: test_should_get_new
+------------------------------------------------
+  [1m[35mQualificacao Load (1.0ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+Processing by QualificacoesController#new as HTML
+  [1m[36mCliente Load (0.9ms)[0m  [1mSELECT `clientes`.* FROM `clientes`[0m
+  [1m[35mRestaurante Load (1.0ms)[0m  SELECT `restaurantes`.* FROM `restaurantes`
+  Rendered qualificacoes/_form.html.erb (18.7ms)
+  Rendered qualificacoes/new.html.erb within layouts/application (25.4ms)
+  Rendered layouts/_menu_principal.html.erb (1.3ms)
+Completed 200 OK in 37ms (Views: 33.7ms | ActiveRecord: 1.9ms)
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+------------------------------------------------------------
+QualificacoesControllerTest: test_should_create_qualificacao
+------------------------------------------------------------
+  [1m[36mQualificacao Load (1.0ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.9ms)[0m  SELECT COUNT(*) FROM `qualificacoes`
+Processing by QualificacoesController#create as HTML
+  Parameters: {"qualificacao"=>{"cliente_id"=>nil, "nota"=>nil, "restaurante_id"=>nil, "valor_gasto"=>nil}}
+  [1m[36m (0.5ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mCliente Load (0.9ms)[0m  [1mSELECT `clientes`.* FROM `clientes`[0m
+  [1m[35mRestaurante Load (1.2ms)[0m  SELECT `restaurantes`.* FROM `restaurantes`
+  Rendered qualificacoes/_form.html.erb (20.9ms)
+  Rendered qualificacoes/new.html.erb within layouts/application (22.0ms)
+  Rendered layouts/_menu_principal.html.erb (1.6ms)
+Completed 200 OK in 54ms (Views: 27.5ms | ActiveRecord: 3.2ms)
+  [1m[36m (0.9ms)[0m  [1mSELECT COUNT(*) FROM `qualificacoes`[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+--------------------------------------------------
+QualificacoesControllerTest: test_should_get_index
+--------------------------------------------------
+  [1m[35mQualificacao Load (1.0ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+Processing by QualificacoesController#index as HTML
+  [1m[36mQualificacao Load (0.9ms)[0m  [1mSELECT `qualificacoes`.* FROM `qualificacoes`[0m
+  Rendered qualificacoes/index.html.erb within layouts/application (10.5ms)
+Completed 500 Internal Server Error in 13ms (ActiveRecord: 0.9ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.9ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+ComentariosControllerTest: test_should_get_index
+------------------------------------------------
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+Processing by ComentariosController#index as HTML
+  [1m[36mComentario Load (1.0ms)[0m  [1mSELECT `comentarios`.* FROM `comentarios`[0m
+  Rendered comentarios/index.html.erb within layouts/application (7.5ms)
+  Rendered layouts/_menu_principal.html.erb (1.4ms)
+Completed 200 OK in 26ms (Views: 23.7ms | ActiveRecord: 1.0ms)
+  [1m[35m (0.6ms)[0m  ROLLBACK
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------
+ComentariosControllerTest: test_should_update_comentario
+--------------------------------------------------------
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+Processing by ComentariosController#update as HTML
+  Parameters: {"comentario"=>{"comentavel_id"=>"1", "comentavel_type"=>"MyString", "conteudo"=>"MyText"}, "id"=>"980190962"}
+  [1m[36mComentario Load (5.4ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36m (0.5ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/comentarios/980190962
+Completed 302 Found in 13ms (ActiveRecord: 6.4ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+-----------------------------------------------
+ComentariosControllerTest: test_should_get_edit
+-----------------------------------------------
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+Processing by ComentariosController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mComentario Load (1.0ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+  Rendered comentarios/_form.html.erb (9.6ms)
+  Rendered comentarios/edit.html.erb within layouts/application (12.8ms)
+  Rendered layouts/_menu_principal.html.erb (1.3ms)
+Completed 200 OK in 32ms (Views: 29.4ms | ActiveRecord: 1.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+---------------------------------------------------------
+ComentariosControllerTest: test_should_destroy_comentario
+---------------------------------------------------------
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+  [1m[36m (0.9ms)[0m  [1mSELECT COUNT(*) FROM `comentarios`[0m
+Processing by ComentariosController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+  [1m[36mComentario Load (1.0ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (1.0ms)[0m  [1mDELETE FROM `comentarios` WHERE `comentarios`.`id` = 980190962[0m
+  [1m[35m (0.5ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 406 Not Acceptable in 9ms (ActiveRecord: 3.9ms)
+  [1m[36m (73.9ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+----------------------------------------------
+ComentariosControllerTest: test_should_get_new
+----------------------------------------------
+  [1m[36mComentario Load (1.0ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+Processing by ComentariosController#new as HTML
+  Rendered comentarios/_form.html.erb (5.5ms)
+  Rendered comentarios/new.html.erb within layouts/application (11.8ms)
+  Rendered layouts/_menu_principal.html.erb (7.4ms)
+Completed 200 OK in 28ms (Views: 26.7ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+--------------------------------------------------------
+ComentariosControllerTest: test_should_create_comentario
+--------------------------------------------------------
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+  [1m[36m (1.0ms)[0m  [1mSELECT COUNT(*) FROM `comentarios`[0m
+Processing by ComentariosController#create as HTML
+  Parameters: {"comentario"=>{"comentavel_id"=>"1", "comentavel_type"=>"MyString", "conteudo"=>"MyText"}}
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO `comentarios` (`conteudo`, `comentavel_id`, `comentavel_type`, `created_at`, `updated_at`) VALUES ('MyText', 1, 'MyString', '2016-01-24 03:38:29', '2016-01-24 03:38:29')[0m
+  [1m[35m (0.5ms)[0m  RELEASE SAVEPOINT active_record_1
+Completed 500 Internal Server Error in 8ms (ActiveRecord: 1.9ms)
+  [1m[36m (43.4ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+------------------------------------------------------
+ComentariosControllerTest: test_should_show_comentario
+------------------------------------------------------
+  [1m[36mComentario Load (1.0ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+Processing by ComentariosController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+  Rendered comentarios/show.html.erb within layouts/application (2.2ms)
+  Rendered layouts/_menu_principal.html.erb (1.2ms)
+Completed 200 OK in 14ms (Views: 11.8ms | ActiveRecord: 1.0ms)
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
+  [1m[35m (0.8ms)[0m  SELECT @@FOREIGN_KEY_CHECKS
+  [1m[36m (0.7ms)[0m  [1mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mFixture Delete (1.4ms)[0m  [1mDELETE FROM `pratos`[0m
+  [1m[35mFixture Insert (0.8ms)[0m  INSERT INTO `pratos` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:40:16', '2016-01-24 03:40:16', 980190962)
+  [1m[36mFixture Insert (0.7ms)[0m  [1mINSERT INTO `pratos` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:40:16', '2016-01-24 03:40:16', 298486374)[0m
+  [1m[35mFixture Delete (1.5ms)[0m  DELETE FROM `restaurantes`
+  [1m[36mFixture Insert (1.4ms)[0m  [1mINSERT INTO `restaurantes` (`nome`, `endereco`, `created_at`, `updated_at`, `id`) VALUES ('Fasano', 'Rua Vergueiro', '2016-01-24 03:40:16', '2016-01-24 03:40:16', 500271007)[0m
+  [1m[35mFixture Insert (1.2ms)[0m  INSERT INTO `restaurantes` (`nome`, `endereco`, `created_at`, `updated_at`, `id`) VALUES ('Fogo de Chao', 'Avenida dos Bandeirantes', '2016-01-24 03:40:16', '2016-01-24 03:40:16', 273585968)
+  [1m[36mFixture Delete (2.9ms)[0m  [1mDELETE FROM `qualificacoes`[0m
+  [1m[35mFixture Insert (1.5ms)[0m  INSERT INTO `qualificacoes` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:40:16', '2016-01-24 03:40:16', 980190962)
+  [1m[36mFixture Insert (1.2ms)[0m  [1mINSERT INTO `qualificacoes` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:40:16', '2016-01-24 03:40:16', 298486374)[0m
+  [1m[35mFixture Delete (1.8ms)[0m  DELETE FROM `receitas`
+  [1m[36mFixture Insert (1.3ms)[0m  [1mINSERT INTO `receitas` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:40:16', '2016-01-24 03:40:16', 980190962)[0m
+  [1m[35mFixture Insert (1.2ms)[0m  INSERT INTO `receitas` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:40:16', '2016-01-24 03:40:16', 298486374)
+  [1m[36mFixture Delete (1.2ms)[0m  [1mDELETE FROM `clientes`[0m
+  [1m[35mFixture Insert (0.8ms)[0m  INSERT INTO `clientes` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:40:16', '2016-01-24 03:40:16', 980190962)
+  [1m[36mFixture Insert (0.7ms)[0m  [1mINSERT INTO `clientes` (`created_at`, `updated_at`, `id`) VALUES ('2016-01-24 03:40:16', '2016-01-24 03:40:16', 298486374)[0m
+  [1m[35mFixture Delete (2.9ms)[0m  DELETE FROM `comentarios`
+  [1m[36mFixture Insert (1.8ms)[0m  [1mINSERT INTO `comentarios` (`conteudo`, `comentavel_id`, `comentavel_type`, `created_at`, `updated_at`, `id`) VALUES ('MyText', 1, 'MyString', '2016-01-24 03:40:16', '2016-01-24 03:40:16', 980190962)[0m
+  [1m[35mFixture Insert (1.4ms)[0m  INSERT INTO `comentarios` (`conteudo`, `comentavel_id`, `comentavel_type`, `created_at`, `updated_at`, `id`) VALUES ('MyText', 1, 'MyString', '2016-01-24 03:40:16', '2016-01-24 03:40:16', 298486374)
+  [1m[36m (76.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.8ms)[0m  SET FOREIGN_KEY_CHECKS = 1
+  [1m[36m (0.7ms)[0m  [1mBEGIN[0m
+---------------------------------------------------
+ClientesControllerTest: test_should_destroy_cliente
+---------------------------------------------------
+  [1m[35mCliente Load (1.1ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+  [1m[36m (1.0ms)[0m  [1mSELECT COUNT(*) FROM `clientes`[0m
+Processing by ClientesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mCliente Load (1.0ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (0.9ms)[0m  DELETE FROM `clientes` WHERE `clientes`.`id` = 980190962
+  [1m[36m (0.4ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Redirected to http://test.host/clientes
+Completed 302 Found in 12ms (ActiveRecord: 2.7ms)
+  [1m[35m (0.9ms)[0m  SELECT COUNT(*) FROM `clientes`
+  [1m[36m (60.6ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+---------------------------------------------
+ClientesControllerTest: test_should_get_index
+---------------------------------------------
+  [1m[36mCliente Load (1.0ms)[0m  [1mSELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1[0m
+Processing by ClientesController#index as HTML
+  [1m[35mCliente Load (0.9ms)[0m  SELECT `clientes`.* FROM `clientes`
+  Rendered clientes/index.html.erb within layouts/application (9.4ms)
+  Rendered layouts/_menu_principal.html.erb (2.6ms)
+Completed 200 OK in 462ms (Views: 459.8ms | ActiveRecord: 0.9ms)
+  [1m[36m (0.6ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+-------------------------------------------
+ClientesControllerTest: test_should_get_new
+-------------------------------------------
+  [1m[36mCliente Load (1.0ms)[0m  [1mSELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1[0m
+Processing by ClientesController#new as HTML
+  Rendered clientes/_form.html.erb (54.4ms)
+  Rendered clientes/new.html.erb within layouts/application (57.5ms)
+  Rendered layouts/_menu_principal.html.erb (1.4ms)
+Completed 200 OK in 68ms (Views: 67.0ms | ActiveRecord: 0.0ms)
+  [1m[35m (0.6ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+--------------------------------------------
+ClientesControllerTest: test_should_get_edit
+--------------------------------------------
+  [1m[35mCliente Load (1.1ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+Processing by ClientesController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mCliente Load (0.9ms)[0m  [1mSELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1[0m
+  Rendered clientes/_form.html.erb (4.0ms)
+  Rendered clientes/edit.html.erb within layouts/application (6.2ms)
+  Rendered layouts/_menu_principal.html.erb (2.1ms)
+Completed 200 OK in 29ms (Views: 26.7ms | ActiveRecord: 0.9ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+--------------------------------------------------
+ClientesControllerTest: test_should_update_cliente
+--------------------------------------------------
+  [1m[35mCliente Load (1.0ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+Processing by ClientesController#update as HTML
+  Parameters: {"cliente"=>{"idade"=>nil, "nome"=>nil}, "id"=>"980190962"}
+  [1m[36mCliente Load (0.9ms)[0m  [1mSELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36mCliente Exists (1.1ms)[0m  [1mSELECT  1 AS one FROM `clientes` WHERE (`clientes`.`nome` IS NULL AND `clientes`.`id` != 980190962) LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  Rendered clientes/_form.html.erb (9.8ms)
+  Rendered clientes/edit.html.erb within layouts/application (11.1ms)
+  Rendered layouts/_menu_principal.html.erb (1.5ms)
+Completed 200 OK in 58ms (Views: 20.0ms | ActiveRecord: 3.0ms)
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+--------------------------------------------------
+ClientesControllerTest: test_should_create_cliente
+--------------------------------------------------
+  [1m[36mCliente Load (1.0ms)[0m  [1mSELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.9ms)[0m  SELECT COUNT(*) FROM `clientes`
+Processing by ClientesController#create as HTML
+  Parameters: {"cliente"=>{"idade"=>nil, "nome"=>nil}}
+  [1m[36m (0.5ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mCliente Exists (1.0ms)[0m  SELECT  1 AS one FROM `clientes` WHERE `clientes`.`nome` IS NULL LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+  Rendered clientes/_form.html.erb (15.9ms)
+  Rendered clientes/new.html.erb within layouts/application (16.9ms)
+  Rendered layouts/_menu_principal.html.erb (1.3ms)
+Completed 200 OK in 39ms (Views: 24.8ms | ActiveRecord: 2.1ms)
+  [1m[35m (0.9ms)[0m  SELECT COUNT(*) FROM `clientes`
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+------------------------------------------------
+ClientesControllerTest: test_should_show_cliente
+------------------------------------------------
+  [1m[36mCliente Load (1.0ms)[0m  [1mSELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1[0m
+Processing by ClientesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mCliente Load (0.9ms)[0m  SELECT  `clientes`.* FROM `clientes` WHERE `clientes`.`id` = 980190962 LIMIT 1
+  Rendered clientes/show.html.erb within layouts/application (3.4ms)
+  Rendered layouts/_menu_principal.html.erb (1.3ms)
+Completed 200 OK in 15ms (Views: 12.2ms | ActiveRecord: 0.9ms)
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+------------------------------------------------------------
+QualificacoesControllerTest: test_should_create_qualificacao
+------------------------------------------------------------
+  [1m[36mQualificacao Load (1.0ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.9ms)[0m  SELECT COUNT(*) FROM `qualificacoes`
+Processing by QualificacoesController#create as HTML
+  Parameters: {"qualificacao"=>{"cliente_id"=>nil, "nota"=>nil, "restaurante_id"=>nil, "valor_gasto"=>nil}}
+  [1m[36m (0.5ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.5ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mCliente Load (1.0ms)[0m  [1mSELECT `clientes`.* FROM `clientes`[0m
+  [1m[35mRestaurante Load (0.9ms)[0m  SELECT `restaurantes`.* FROM `restaurantes`
+  Rendered qualificacoes/_form.html.erb (41.1ms)
+  Rendered qualificacoes/new.html.erb within layouts/application (44.3ms)
+  Rendered layouts/_menu_principal.html.erb (1.2ms)
+Completed 200 OK in 89ms (Views: 59.9ms | ActiveRecord: 3.0ms)
+  [1m[36m (0.9ms)[0m  [1mSELECT COUNT(*) FROM `qualificacoes`[0m
+  [1m[35m (0.6ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+------------------------------------------------------------
+QualificacoesControllerTest: test_should_update_qualificacao
+------------------------------------------------------------
+  [1m[35mQualificacao Load (1.0ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+Processing by QualificacoesController#update as HTML
+  Parameters: {"qualificacao"=>{"cliente_id"=>nil, "nota"=>nil, "restaurante_id"=>nil, "valor_gasto"=>nil}, "id"=>"980190962"}
+  [1m[36mQualificacao Load (5.3ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35mQualificacao Load (1.0ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.6ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36mCliente Load (0.9ms)[0m  [1mSELECT `clientes`.* FROM `clientes`[0m
+  [1m[35mRestaurante Load (0.9ms)[0m  SELECT `restaurantes`.* FROM `restaurantes`
+  Rendered qualificacoes/_form.html.erb (22.7ms)
+  Rendered qualificacoes/edit.html.erb within layouts/application (25.4ms)
+  Rendered layouts/_menu_principal.html.erb (1.2ms)
+Completed 200 OK in 62ms (Views: 32.1ms | ActiveRecord: 9.2ms)
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+-------------------------------------------------------------
+QualificacoesControllerTest: test_should_destroy_qualificacao
+-------------------------------------------------------------
+  [1m[36mQualificacao Load (1.0ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (1.0ms)[0m  SELECT COUNT(*) FROM `qualificacoes`
+Processing by QualificacoesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mQualificacao Load (5.2ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+  [1m[36mSQL (0.9ms)[0m  [1mDELETE FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962[0m
+  [1m[35m (0.5ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/qualificacoes
+Completed 302 Found in 12ms (ActiveRecord: 7.0ms)
+  [1m[36m (0.9ms)[0m  [1mSELECT COUNT(*) FROM `qualificacoes`[0m
+  [1m[35m (90.2ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+--------------------------------------------------
+QualificacoesControllerTest: test_should_get_index
+--------------------------------------------------
+  [1m[35mQualificacao Load (1.1ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+Processing by QualificacoesController#index as HTML
+  [1m[36mQualificacao Load (1.0ms)[0m  [1mSELECT `qualificacoes`.* FROM `qualificacoes`[0m
+  Rendered qualificacoes/index.html.erb within layouts/application (9.9ms)
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 1.0ms)
+  [1m[35m (0.8ms)[0m  ROLLBACK
+  [1m[36m (0.6ms)[0m  [1mBEGIN[0m
+-------------------------------------------------
+QualificacoesControllerTest: test_should_get_edit
+-------------------------------------------------
+  [1m[35mQualificacao Load (1.7ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+Processing by QualificacoesController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mQualificacao Load (1.6ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+  [1m[35mCliente Load (1.8ms)[0m  SELECT `clientes`.* FROM `clientes`
+  [1m[36mRestaurante Load (1.6ms)[0m  [1mSELECT `restaurantes`.* FROM `restaurantes`[0m
+  Rendered qualificacoes/_form.html.erb (25.2ms)
+  Rendered qualificacoes/edit.html.erb within layouts/application (27.5ms)
+  Rendered layouts/_menu_principal.html.erb (5.1ms)
+Completed 200 OK in 72ms (Views: 41.8ms | ActiveRecord: 5.0ms)
+  [1m[35m (0.8ms)[0m  ROLLBACK
+  [1m[36m (0.7ms)[0m  [1mBEGIN[0m
+----------------------------------------------------------
+QualificacoesControllerTest: test_should_show_qualificacao
+----------------------------------------------------------
+  [1m[35mQualificacao Load (1.0ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+Processing by QualificacoesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mQualificacao Load (1.0ms)[0m  [1mSELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1[0m
+  Rendered qualificacoes/show.html.erb within layouts/application (3.9ms)
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 1.0ms)
+  [1m[35m (1.5ms)[0m  ROLLBACK
+  [1m[36m (0.7ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+QualificacoesControllerTest: test_should_get_new
+------------------------------------------------
+  [1m[35mQualificacao Load (1.0ms)[0m  SELECT  `qualificacoes`.* FROM `qualificacoes` WHERE `qualificacoes`.`id` = 980190962 LIMIT 1
+Processing by QualificacoesController#new as HTML
+  [1m[36mCliente Load (0.9ms)[0m  [1mSELECT `clientes`.* FROM `clientes`[0m
+  [1m[35mRestaurante Load (1.0ms)[0m  SELECT `restaurantes`.* FROM `restaurantes`
+  Rendered qualificacoes/_form.html.erb (10.9ms)
+  Rendered qualificacoes/new.html.erb within layouts/application (12.4ms)
+  Rendered layouts/_menu_principal.html.erb (12.6ms)
+Completed 200 OK in 32ms (Views: 29.3ms | ActiveRecord: 1.9ms)
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+--------------------------------------------------------
+ComentariosControllerTest: test_should_create_comentario
+--------------------------------------------------------
+  [1m[36mComentario Load (1.1ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.9ms)[0m  SELECT COUNT(*) FROM `comentarios`
+Processing by ComentariosController#create as HTML
+  Parameters: {"comentario"=>{"comentavel_id"=>"1", "comentavel_type"=>"MyString", "conteudo"=>"MyText"}}
+  [1m[36m (0.6ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO `comentarios` (`conteudo`, `comentavel_id`, `comentavel_type`, `created_at`, `updated_at`) VALUES ('MyText', 1, 'MyString', '2016-01-24 03:40:18', '2016-01-24 03:40:18')
+  [1m[36m (0.5ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 2.1ms)
+  [1m[35m (46.2ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+------------------------------------------------
+ComentariosControllerTest: test_should_get_index
+------------------------------------------------
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+Processing by ComentariosController#index as HTML
+  [1m[36mComentario Load (1.0ms)[0m  [1mSELECT `comentarios`.* FROM `comentarios`[0m
+  Rendered comentarios/index.html.erb within layouts/application (14.2ms)
+  Rendered layouts/_menu_principal.html.erb (1.3ms)
+Completed 200 OK in 35ms (Views: 33.8ms | ActiveRecord: 1.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.9ms)[0m  [1mBEGIN[0m
+-----------------------------------------------
+ComentariosControllerTest: test_should_get_edit
+-----------------------------------------------
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+Processing by ComentariosController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mComentario Load (1.0ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+  Rendered comentarios/_form.html.erb (10.1ms)
+  Rendered comentarios/edit.html.erb within layouts/application (24.5ms)
+  Rendered layouts/_menu_principal.html.erb (1.3ms)
+Completed 200 OK in 38ms (Views: 33.6ms | ActiveRecord: 1.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+----------------------------------------------
+ComentariosControllerTest: test_should_get_new
+----------------------------------------------
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+Processing by ComentariosController#new as HTML
+  Rendered comentarios/_form.html.erb (4.6ms)
+  Rendered comentarios/new.html.erb within layouts/application (6.7ms)
+  Rendered layouts/_menu_principal.html.erb (1.3ms)
+Completed 200 OK in 17ms (Views: 16.0ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+--------------------------------------------------------
+ComentariosControllerTest: test_should_update_comentario
+--------------------------------------------------------
+  [1m[36mComentario Load (1.0ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+Processing by ComentariosController#update as HTML
+  Parameters: {"comentario"=>{"comentavel_id"=>"1", "comentavel_type"=>"MyString", "conteudo"=>"MyText"}, "id"=>"980190962"}
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35m (0.6ms)[0m  RELEASE SAVEPOINT active_record_1
+Redirected to http://test.host/comentarios/980190962
+Completed 302 Found in 8ms (ActiveRecord: 2.0ms)
+  [1m[36m (0.6ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+---------------------------------------------------------
+ComentariosControllerTest: test_should_destroy_comentario
+---------------------------------------------------------
+  [1m[36mComentario Load (1.6ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+  [1m[35m (0.9ms)[0m  SELECT COUNT(*) FROM `comentarios`
+Processing by ComentariosController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mComentario Load (1.0ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+  [1m[35mComentario Load (0.9ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+  [1m[36m (0.9ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mSQL (1.1ms)[0m  DELETE FROM `comentarios` WHERE `comentarios`.`id` = 980190962
+  [1m[36m (0.5ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+Completed 406 Not Acceptable in 20ms (ActiveRecord: 4.4ms)
+  [1m[35m (42.7ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+------------------------------------------------------
+ComentariosControllerTest: test_should_show_comentario
+------------------------------------------------------
+  [1m[35mComentario Load (1.0ms)[0m  SELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1
+Processing by ComentariosController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mComentario Load (1.0ms)[0m  [1mSELECT  `comentarios`.* FROM `comentarios` WHERE `comentarios`.`id` = 980190962 LIMIT 1[0m
+  Rendered comentarios/show.html.erb within layouts/application (2.3ms)
+  Rendered layouts/_menu_principal.html.erb (1.2ms)
+Completed 200 OK in 18ms (Views: 15.3ms | ActiveRecord: 1.0ms)
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+---------------------------------
+RestauranteTest: test_restaurante
+---------------------------------
+  [1m[35mRestaurante Load (1.1ms)[0m  SELECT  `restaurantes`.* FROM `restaurantes` WHERE `restaurantes`.`id` = 500271007 LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT `schema_migrations`.* FROM `schema_migrations`[0m
